@@ -7,14 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
 {
-  protected $table = "met";
+  protected $table = "empresa_colaboradores";
   use HasFactory;
 
   protected $fillable = [
+    'id',
+    'id_empresa',
     'nombre',
-    'area',
-    'puesto',
-    'telefono',
-    'correo'
+    'apellido_paterno',
+    'apellido_materno',
+    'area_empresarial',
+    'puesto'
   ];
 }

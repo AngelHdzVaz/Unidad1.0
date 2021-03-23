@@ -6,17 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DB;
 
+use App\Models\Usuario;
 class UsuariosController extends Controller
 {
   public function registrarUsuario(Request $request){
-    dd($request);
     try {
-      $nombre = $request->name;
-      $area = $request->area;
+      $nombre = $request->nombre;
+      $apellido_paterno = $request->apellido_paterno;
+      $apellido_materno = $request->apellido_materno;
+      $area_empresarial = $request->area_empresarial;
       $puesto = $request->puesto;
-      
+
       //validacion
-      if ($nombre == null || $area == null || $puesto == null || $telefono == null || $correo == null ) {
+      if ($nombre == null || $aprllido_paterno == null || $puesto == null || $telefono == null || $correo == null ) {
         return redirect()->back()->with([
           'titulo' => 'Verifique los campos',
           'mensaje' => 'Alguno de los campos se encuentra vacío',
@@ -27,10 +29,10 @@ class UsuariosController extends Controller
 
       Usuario::create([
         'nombre' => $nombre,
-        'area' => $area,
-        'puesto' => $puesto,
-        'telefono' => $telefono,
-        'correo' => $correo
+        'apellido_paterno' => $apellido_paterno,
+        'apellido_materno' => $apellido_materno,
+        'area_empresarial' => $area_empresarial,
+        'puesto' => $puesto
       ]);
 
       DB::commit();
@@ -44,7 +46,7 @@ class UsuariosController extends Controller
   }
   public function verWelcome(Request $request){
     try {
-      $usuarios = Usuario::select('id','nombre','correo')->get();
+      $usuarios = Usuario::select('id','id_empresa','nombre','apellido_paterno','apellido_materno','area_empresarial','puesto')->get();
       return view('welcome', compact('usuarios'));
 
     } catch (\Exception $e) {

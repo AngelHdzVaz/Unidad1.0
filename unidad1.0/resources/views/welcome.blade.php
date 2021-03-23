@@ -3,12 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-end">
-            <button type="button" class="btn btn-light" onclick="location.href='{{ route('register')}}'">Colaboradores</button>
+            <button type="button" class="btn btn-light" onclick="location.href='{{ route('colaborador')}'">Colaboradores</button>
     </div>
 
     <div class="row justify-content-center text-sm">
       <h1>Carta Presentacion</h1>
     </div>
-
 </div>
 @endsection
