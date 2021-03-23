@@ -19,4 +19,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/usuarios/registrar', [UsuariosController::class, 'registrarUsuario'])->name('RegistrarUsuario');
+
+Route::get('/', [UsuariosController::class, 'verWelcome'])->name('VerWelcome');

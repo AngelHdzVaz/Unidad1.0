@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-end">
-            <button type="button" class="btn btn-light">Colaboradores</button>
+            <button type="button" class="btn btn-light" onclick="location.href='{{ route('register')}}'">Colaboradores</button>
     </div>
 
     <div class="row justify-content-center text-sm">
