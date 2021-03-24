@@ -25,3 +25,8 @@ Auth::routes();
 Route::post('/usuarios/registrar', [UsuariosController::class, 'registrarUsuario'])->name('RegistrarUsuario');
 
 Route::get('/', [UsuariosController::class, 'verWelcome'])->name('VerWelcome');
+Route::get('/met',[UsuariosController::class, 'metColaboradores'])->name('MetColaboradores');
+Route::get('/usuarios/registrarColaborador', [UsuariosController::class, 'registrarColaborador'])->name('RegistrarColaborador');
+Route::post('/usuarios/registrado', [UsuariosController::class, 'registrarUsuario'])->name('RegistrarUsuario');
+Route::get('/oshun',[UsuariosController::class, 'verOshun'])->name('VerOshun');
+Route::get('/mooc',[UsuariosController::class, 'verMooc'])->name('VerMooc');
