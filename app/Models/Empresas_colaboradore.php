@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Colaboradores_telefono as CTel;
+use App\Models\Colaboradores_correo as CCor;
 
 class Empresas_colaboradore extends Model
 {
