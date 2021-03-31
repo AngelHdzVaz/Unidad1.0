@@ -20,12 +20,11 @@
       <tbody>
         @foreach($usuarios as $usuario)
           <tr>
-            <td>{{ $usuario->id }}</td>
-            <td>{{ $usuario->nombre }}</td>
-            <td>{{ $usuario->apellido_paterno }}</td>
-            <td>{{ $usuario->apellido_materno }}</td>
-            <td>{{ $usuario->area_empresarial }}</td>
+            <td>{{ $usuario->nombre ." ". $usuario->apellido_paterno ." ". $usuario->apellido_materno  }}</td>
+            <td>{{  $usuario->area_empresarial }}</td>
+            <td>{{ $usuario->puesto  }}</td>
             <td>{{ $usuario->puesto }}</td>
+            <td>{{ $usuario->puesto  }}</td>
           </tr>
         @endforeach
       </tbody>

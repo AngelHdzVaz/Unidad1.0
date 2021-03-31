@@ -47,11 +47,25 @@
 
                             </div>
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Puesto') }}</label>
-
+                              <div  class="p-1 text-md-right">
+                                  <select class="form-select form-control col-md-12" aria-label="Default select example">
+                                    <option selected hidden disabled>Selecciona</option>
+                                    @foreach($puestos as $puesto)
+                                      <option value="{{ $empresa->empresa }}">{{ $puesto->puesto }}</option>
+                                    @endforeach
+                                  </select>
+                                </div>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Telefono') }}</label>
                             <div class="p-1 col-md-6">
-                                <input id="ipt_puesto" type="text" class="form-control " name="puesto" value="{{ old('puesto') }}"  autofocus>
+                                <input id="ipt_telefono" type="text" class="form-control " name="telefono" value="{{ old('telefono') }}"  autofocus>
 
                             </div>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Correo') }}</label>
+                            <div class="p-1 col-md-6">
+                                <input id="ipt_correo" type="text" class="form-control " name="correo" value="{{ old('correo') }}"  autofocus>
+
+                            </div>
+
                         </div>
 
                         <div class="form-group row mb-0">
