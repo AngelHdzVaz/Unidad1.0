@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DB;
-
+//funciones de carga
 use App\Models\Empresa;
 use App\Models\Usuario;
 use App\Models\Empresas_usuario;

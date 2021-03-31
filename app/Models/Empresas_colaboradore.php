@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Colaboradores_telefono as CTel;
 use App\Models\Colaboradores_correo as CCor;
-//tabla para colaboradoes
 class Empresas_colaboradore extends Model
 {
     use HasFactory;
