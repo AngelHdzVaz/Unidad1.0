@@ -10,7 +10,7 @@ use App\Models\Empresa;
 use App\Models\Usuario;
 use App\Models\Empresas_usuario;
 use App\Models\Empresas_colaboradore as ECol;
-use App\Models\Colaboradores_telefono as CTel;
+use App\Models\Colaboradores_telefono as CTel ;
 class UsuariosController extends Controller
 {
 
