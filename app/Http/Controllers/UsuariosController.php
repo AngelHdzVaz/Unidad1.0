@@ -9,16 +9,19 @@ use DB;
 use App\Models\Empresa;
 use App\Models\Usuario;
 use App\Models\Empresas_usuario;
-use App\Models\Empresas_colaboradore as ECol;
+use App\Models\Empresas_colaboradore as ECol ;
 use App\Models\Colaboradores_telefono as CTel ;
+use App\Models\Colaboradores_correo as CCor ;
 use App\Models\Cat_empresas_puesto as CEPue ;
+use App\Models\Cat_empresas_area as CEAre ;
 class UsuariosController extends Controller
 {
 
   public function registroColaborador(Request $request){
     $empresas = Empresa::select('empresa')->get();
     $puestos = CEPue::select('puesto')->where('puesto','!=','Dios')->get();
-    return view('registro_colaborador',compact('empresas','puestos'));
+    $areas = CEAre::select('area_empresarial')->get();
+    return view('registro_colaborador',compact('empresas','puestos','areas'));
   }
 
   public function loginUsuario(Request $request){
@@ -103,8 +106,13 @@ class UsuariosController extends Controller
       return $e->getMessage();
     }
   }
+
   public function verWelcome(){
     return view('welcome');
+  }
+
+  public function verMet(){
+    return view('met');
   }
 
   public function verOshun(){
@@ -116,8 +124,9 @@ class UsuariosController extends Controller
 
     public function metColaboradores(Request $request){
       try {
-        $usuarios =  ECol::select('id','id_empresa','nombre','apellido_paterno','apellido_materno','area_empresarial','puesto')->get();
-        return view('colaborador', compact('usuarios'));
+        $colaboradores =  ECol::with('telefonos_ECol')->with('correos_ECol')->get();
+        //dd($colaboradores);
+        return view('colaborador', compact('colaboradores'));
 
       } catch (\Exception $e) {
         return $e->getMessage();
@@ -126,8 +135,9 @@ class UsuariosController extends Controller
 
     public function oshunColaboradores(Request $request){
       try {
-        $usuarios =  ECol::select('id','id_empresa','nombre','apellido_paterno','apellido_materno','area_empresarial','puesto')->get();
-        return view('colaborador', compact('usuarios'));
+        $colaboradores =  ECol::with('telefonos_ECol')->with('correos_ECol')->get();
+      //  dd($colaboradores);
+        return view('colaborador', compact('colaboradores'));
 
       } catch (\Exception $e) {
         return $e->getMessage();
@@ -136,8 +146,9 @@ class UsuariosController extends Controller
 
     public function moocColaboradores(Request $request){
       try {
-        $usuarios =  ECol::select('id','id_empresa','nombre','apellido_paterno','apellido_materno','area_empresarial','puesto')->get();
-        return view('colaborador', compact('usuarios'));
+        $colaboradores =  ECol::with('telefonos_ECol')->with('correos_ECol')->get();
+        dd($colaboradores);
+        return view('colaborador', compact('colaboradores'));
 
       } catch (\Exception $e) {
         return $e->getMessage();

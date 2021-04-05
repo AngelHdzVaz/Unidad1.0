@@ -18,13 +18,24 @@
         </tr>
       </thead>
       <tbody>
-        @foreach($usuarios as $usuario)
+        @foreach($colaboradores as $colaborador)
           <tr>
-            <td>{{ $usuario->nombre ." ". $usuario->apellido_paterno ." ". $usuario->apellido_materno  }}</td>
-            <td>{{  $usuario->area_empresarial }}</td>
-            <td>{{ $usuario->puesto  }}</td>
-            <td>{{ $usuario->puesto }}</td>
-            <td>{{ $usuario->puesto  }}</td>
+            <td>{{ $colaborador->nombre ." ". $colaborador->apellido_paterno ." ".$colaborador->apellido_materno  }}</td>
+            <td>{{ $colaborador->area_empresarial }}</td>
+            <td>{{ $colaborador->puesto_ECol->puesto }}</td>
+            <td>
+              @foreach($colaborador->telefonos_ECol as $telefono)
+
+                  {{ $telefono-> telefono }} <br>
+
+              @endforeach
+            </td>
+            <td>
+              @foreach($colaborador->correos_ECol as $correo)
+
+                  {{ $correo-> correo }} <br>
+              @endforeach
+            </td>
           </tr>
         @endforeach
       </tbody>

@@ -10,44 +10,52 @@
                 <div class="card-header">{{ __('Registrar Colaborador') }}</div>
 
                 <div class="card-body  ">
-                    <div  class="p-1 text-md-right">
-                        <select class="form-select form-control col-md-4" aria-label="Default select example">
-                          <option selected hidden disabled>Selecciona</option>
-                          @foreach($empresas as $empresa)
-                            <option value="{{ $empresa->empresa }}">{{ $empresa->empresa }}</option>
-                          @endforeach
-                        </select>
-                      </div>
                     <form method="POST" action="{{ route('RegistrarUsuario') }}">
                         @csrf
 
                         <div class="form-group row ">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
+                          <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Empresa') }}</label>
+                            <div  class="p-3 text-md-right">
+                                <select class="form-select form-control col-md-10" aria-label="Default select example">
+                                  <option selected hidden disabled>Selecciona</option>
+                                  @foreach($empresas as $empresa)
+                                    <option value="{{ $empresa->empresa }}">{{ $empresa->empresa }}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+
+
+                            <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Nombre') }}</label>
 
                             <div class="p-1 col-md-6">
                                 <input id="ipt_nombre" type="text" class="form-control " name="nombre" value="{{ old('nombre') }}"  autofocus>
 
                             </div>
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
+                            <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Apellido Paterno') }}</label>
 
                             <div class="p-1 col-md-6">
                                 <input id="ipt_apellido_paterno" type="text" class="form-control " name="apellido_paterno" value="{{ old('apellido_paterno') }}"  autofocus>
 
                             </div>
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Materno') }}</label>
+                            <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Apellido Materno') }}</label>
 
-                            <div class="p-1 col-md-6">
+                            <div class="p-2 col-md-6">
                                 <input id="ipt_apellido_materno" type="text" class="form-control " name="apellido_materno" value="{{ old('apellido_materno') }}"  autofocus>
 
                             </div>
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Area Empresarial') }}</label>
+                              <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Area Empresarial') }}</label>
+                                <div  class="p-3 text-md-right">
+                                    <select class="form-select form-control col-md-10" aria-label="Default select example">
+                                      <option selected hidden disabled>Selecciona</option>
+                                      @foreach($areas as $area_empresarial)
+                                        <option value="{{ $empresa->empresa }}">{{ $area_empresarial->area_empresarial }}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
 
-                            <div class="p-1 col-md-6">
-                                <input id="ipt_area_empresarial" type="text" class="form-control " name="area_empresarial" value="{{ old('area_empresarial') }}"  autofocus>
 
-                            </div>
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Puesto') }}</label>
-                              <div  class="p-1 text-md-right">
+                            <label for="name" class="p-2 col-md-4 col-form-label text-md-center">{{ __('Puesto') }}</label>
+                              <div  class="p-2 text-md-right">
                                   <select class="form-select form-control col-md-12" aria-label="Default select example">
                                     <option selected hidden disabled>Selecciona</option>
                                     @foreach($puestos as $puesto)
@@ -55,12 +63,12 @@
                                     @endforeach
                                   </select>
                                 </div>
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Telefono') }}</label>
+                            <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Telefono (10 digitos)') }}</label>
                             <div class="p-1 col-md-6">
                                 <input id="ipt_telefono" type="text" class="form-control " name="telefono" value="{{ old('telefono') }}"  autofocus>
 
                             </div>
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Correo') }}</label>
+                            <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Correo') }}</label>
                             <div class="p-1 col-md-6">
                                 <input id="ipt_correo" type="text" class="form-control " name="correo" value="{{ old('correo') }}"  autofocus>
 

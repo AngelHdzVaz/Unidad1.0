@@ -27,8 +27,11 @@ class Empresas_colaboradore extends Model
 
     public function puesto_ECol()
     {
-        return $this->hasOne(CEPue::class, 'id_puesto', 'id');
+        return $this->hasOne(CEPue::class, 'id', 'id_puesto');
     }
 
-
+    public function correos_ECol()
+    {
+        return $this->hasMany(CCor::class, 'id_colaborador', 'id');
+    }
 }

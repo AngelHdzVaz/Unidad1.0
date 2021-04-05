@@ -22,18 +22,22 @@ Route::get('/', function () {
 Route::get('/pruebas',function(){
   $colaborador_id = 1;
   //whereHas condicion anonima default
-  $colaborador_telefonos = App\Models\Empresas_colaboradore::with('telefonos_CTel')->where('id',$colaborador_id)->get();
-  dd($colaborador_telefonos);
+  $colaborador_telefonos = App\Models\Empresas_colaboradore::with('telefonos_Ecol')->where('id',$colaborador_id)->get();
+  $colaborador_correos = App\Models\Empresas_colaboradore::with('correos_ECol')->where('id',$colaborador_id)->get();
+  dd($colaborador_correos, $colaborador_telefonos);
 });
 
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', [UsuariosController::class, 'verWelcome'])->name('VerWelcome');
-Route::get('/met',[UsuariosController::class, 'metColaboradores'])->name('MetColaboradores');
+
+Route::get('/colaboradores',[UsuariosController::class, 'metColaboradores'])->name('MetColaboradores');
 Route::get('/colaboradores/registro', [UsuariosController::class, 'registroColaborador'])->name('RegistroColaborador');
 Route::get('/usuarios/registrado', [UsuariosController::class, 'registrarUsuario'])->name('RegistrarUsuario');
 Route::post('/login',[ UsuariosController::class,'loginUsuario'])->name('LoginUsuario');
+
+Route::get('/', [UsuariosController::class, 'verWelcome'])->name('VerWelcome');
+Route::get('/met', [UsuariosController::class, 'verMet'])->name('VerMet');
 Route::get('/oshun',[UsuariosController::class, 'verOshun'])->name('VerOshun');
 Route::get('/mooc',[UsuariosController::class, 'verMooc'])->name('VerMooc');
