@@ -71,9 +71,14 @@
                             <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Correo') }}</label>
                             <div class="p-1 col-md-6">
                                 <input id="ipt_correo" type="text" class="form-control " name="correo" value="{{ old('correo') }}"  autofocus>
-
                             </div>
 
+                            <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Contraseña') }}</label>
+
+                            <div class="p-1 col-md-6">
+                                <input id="ipt_contrasenia" type="text" class="form-control " name="contrasenia" value="{{ old('contrasenia') }}"  autofocus>
+
+                            </div>
                         </div>
 
                         <div class="form-group row mb-0">

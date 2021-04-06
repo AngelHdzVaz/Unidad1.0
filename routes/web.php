@@ -27,20 +27,19 @@ Route::get('/pruebas',function(){
   dd($colaborador_correos, $colaborador_telefonos);
 });
 
-Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-Route::get('/colaboradores/met',[UsuariosController::class, 'metColaboradores'])->name('MetColaboradores');
-Route::get('/colaboradores/oshun',[UsuariosController::class, 'oshunColaboradores'])->name('OshunColaboradores');
-Route::get('/colaboradores/mooc',[UsuariosController::class, 'moocColaboradores'])->name('MoocColaboradores');
-
-Route::get('/colaboradores/registro', [UsuariosController::class, 'registroColaborador'])->name('RegistroColaborador');
-Route::post('/usuarios/registrado', [UsuariosController::class, 'registrarColaborador'])->name('RegistrarColaborador');
 Route::post('/login',[ UsuariosController::class,'loginUsuario'])->name('LoginUsuario');
 
 Route::get('/', [UsuariosController::class, 'verWelcome'])->name('VerWelcome');
 Route::get('/met', [UsuariosController::class, 'verMet'])->name('VerMet');
 Route::get('/oshun',[UsuariosController::class, 'verOshun'])->name('VerOshun');
 Route::get('/mooc',[UsuariosController::class, 'verMooc'])->name('VerMooc');
+
+
+Route::get('/colaboradores/met',[UsuariosController::class, 'metColaboradores'])->name('MetColaboradores');
+Route::get('/colaboradores/oshun',[UsuariosController::class, 'oshunColaboradores'])->name('OshunColaboradores');
+Route::get('/colaboradores/mooc',[UsuariosController::class, 'moocColaboradores'])->name('MoocColaboradores');
+
+Auth::routes();
+
+Route::get('/colaboradores/registro', [UsuariosController::class, 'registroColaborador'])->name('RegistroColaborador');
+Route::post('/usuarios/registrado', [UsuariosController::class, 'registrarColaborador'])->name('RegistrarColaborador');

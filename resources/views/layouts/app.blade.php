@@ -20,6 +20,16 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+  @if(session('titulo'))
+      <script>
+          Swal.fire({
+            title: '{{ session("titulo") }}',
+            html: '{{ session("mensaje") }}',
+            icon: '{{ session("tipo") }}'
+          });
+        </script>
+    @endif
+    
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">

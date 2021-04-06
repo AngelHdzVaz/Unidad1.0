@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//encriptar caracteres
 use Illuminate\Support\Facades\Hash;
 use DB;
 //funciones de carga
 use App\Models\Empresa;
 use App\Models\Usuario;
-use App\Models\Empresas_usuario;
+use App\Models\Empresas_usuario as EUsu;
 use App\Models\Empresas_colaboradore as ECol ;
 use App\Models\Cat_empresas_puesto as CEPue ;
 use App\Models\Cat_empresas_area as CEAre ;
@@ -27,6 +28,14 @@ class UsuariosController extends Controller
   }
 
   public function loginUsuario(Request $request){
+    try {
+      $correo = $correo;
+      $contrasenia = $contrasenia
+
+    } catch (\Exception $e) {
+
+    }
+
     return view('register');
   }
 
@@ -40,6 +49,7 @@ class UsuariosController extends Controller
       $puesto = $request->puesto;
       $telefono = $request ->telefono;
       $correo = $request ->correo;
+      $contrasenia =$request ->contrasenia;
             //relacion de id_empresa
             //pluck-> para devolver solo el string no el objeto
       $empresa_id = Empresa::select('id')->where('empresa', $nombre_empresa)->pluck('id')->first();
@@ -95,6 +105,14 @@ class UsuariosController extends Controller
             ]);
           }
 
+          if(!$contrasenia){
+            return redirect()->back()->with([
+              'titulo' => 'Verifica el campo Contraseña',
+              'mensaje' => 'El campo no debe estar vacío',
+              'tipo' => 'error'
+            ]);
+            }
+
 
       DB::beginTransaction();
 
@@ -117,6 +135,13 @@ class UsuariosController extends Controller
         'id_colaborador' => $colaborador->id,
         'id_empresa' =>$empresa_id,
         'correo' =>$correo
+      ]);
+
+      EUsu::create([
+        'id_empresa' => $empresa_id,
+        'id_colaborador' => $colaborador->id,
+        'usuario' =>$correo,
+        'password' =>Hash::make($contrasenia)
       ]);
 
       DB::commit();

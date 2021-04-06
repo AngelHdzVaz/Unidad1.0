@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h3>Lista de Colaboradores Medical Technology</h3>
+    <h3>Lista de Colaboradores </h3>
     <div class=" row justify-content-end">
           <button type="button" class="btn btn-light" onclick="location.href='{{ route('RegistroColaborador')}}'">Nuevo</button>
     </div>
@@ -14,7 +14,7 @@
           <th scope="col">Puesto</th>
           <th scope="col">Telefonos</th>
           <th scope="col">Correos</th>
-          
+
         </tr>
       </thead>
       <tbody>
