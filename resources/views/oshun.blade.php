@@ -4,7 +4,7 @@
 <div class="container">
   <div class="col">
     <div class=" row justify-content-end">
-          <button type="button" class="btn btn-light" onclick="location.href='{{ route('MetColaboradores')}}'">Colaboradores</button>
+          <button type="button" class="btn btn-light" onclick="location.href='{{ route('OshunColaboradores')}}'">Colaboradores</button>
     </div>
     <div class="row justify-content-center text-sm">
       <h1>OSHUN </h1>

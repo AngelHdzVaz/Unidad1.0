@@ -10,13 +10,13 @@
                 <div class="card-header">{{ __('Registrar Colaborador') }}</div>
 
                 <div class="card-body  ">
-                    <form method="POST" action="{{ route('RegistrarUsuario') }}">
+                    <form method="POST" action="{{ route('RegistrarColaborador') }}">
                         @csrf
 
                         <div class="form-group row ">
                           <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Empresa') }}</label>
                             <div  class="p-3 text-md-right">
-                                <select class="form-select form-control col-md-10" aria-label="Default select example">
+                                <select class="form-select form-control col-md-10" aria-label="Default select example" name='nombre_empresa'>
                                   <option selected hidden disabled>Selecciona</option>
                                   @foreach($empresas as $empresa)
                                     <option value="{{ $empresa->empresa }}">{{ $empresa->empresa }}</option>
@@ -43,12 +43,12 @@
                                 <input id="ipt_apellido_materno" type="text" class="form-control " name="apellido_materno" value="{{ old('apellido_materno') }}"  autofocus>
 
                             </div>
-                              <label for="name" class="p-3 col-md-4 col-form-label text-md-center">{{ __('Area Empresarial') }}</label>
+                              <label for="name" class="p-3 col-md-4 col-form-label text-md-center" >{{ __('Area Empresarial') }}</label>
                                 <div  class="p-3 text-md-right">
-                                    <select class="form-select form-control col-md-10" aria-label="Default select example">
+                                    <select class="form-select form-control col-md-10" aria-label="Default select example" name='area_empresarial'>
                                       <option selected hidden disabled>Selecciona</option>
                                       @foreach($areas as $area_empresarial)
-                                        <option value="{{ $empresa->empresa }}">{{ $area_empresarial->area_empresarial }}</option>
+                                        <option value="{{ $area_empresarial->area_empresarial }}">{{ $area_empresarial->area_empresarial }}</option>
                                       @endforeach
                                     </select>
                                   </div>
@@ -56,10 +56,10 @@
 
                             <label for="name" class="p-2 col-md-4 col-form-label text-md-center">{{ __('Puesto') }}</label>
                               <div  class="p-2 text-md-right">
-                                  <select class="form-select form-control col-md-12" aria-label="Default select example">
+                                  <select class="form-select form-control col-md-12" aria-label="Default select example" name='puesto'>
                                     <option selected hidden disabled>Selecciona</option>
                                     @foreach($puestos as $puesto)
-                                      <option value="{{ $empresa->empresa }}">{{ $puesto->puesto }}</option>
+                                      <option value="{{ $puesto->puesto }}">{{ $puesto->puesto }}</option>
                                     @endforeach
                                   </select>
                                 </div>

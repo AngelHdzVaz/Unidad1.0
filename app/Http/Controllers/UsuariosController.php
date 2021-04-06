@@ -10,17 +10,19 @@ use App\Models\Empresa;
 use App\Models\Usuario;
 use App\Models\Empresas_usuario;
 use App\Models\Empresas_colaboradore as ECol ;
-use App\Models\Colaboradores_telefono as CTel ;
-use App\Models\Colaboradores_correo as CCor ;
 use App\Models\Cat_empresas_puesto as CEPue ;
 use App\Models\Cat_empresas_area as CEAre ;
+use App\Models\Colaboradores_telefono as CTel ;
+use App\Models\Colaboradores_correo as CCor ;
+
 class UsuariosController extends Controller
 {
 
   public function registroColaborador(Request $request){
     $empresas = Empresa::select('empresa')->get();
-    $puestos = CEPue::select('puesto')->where('puesto','!=','Dios')->get();
     $areas = CEAre::select('area_empresarial')->get();
+    $puestos = CEPue::select('puesto')->where('puesto','!=','Dios')->get();
+
     return view('registro_colaborador',compact('empresas','puestos','areas'));
   }
 
@@ -28,7 +30,7 @@ class UsuariosController extends Controller
     return view('register');
   }
 
-  public function registrarUsuario(Request $request){
+  public function registrarColaborador(Request $request){
     try {
       $nombre_empresa = $request ->nombre_empresa;
       $nombre = $request->nombre;
@@ -39,7 +41,16 @@ class UsuariosController extends Controller
       $telefono = $request ->telefono;
       $correo = $request ->correo;
             //relacion de id_empresa
-      $empresa_id = Empresa::select('id')->where('empresa', $nombre_empresa)->first();
+            //pluck-> para devolver solo el string no el objeto
+      $empresa_id = Empresa::select('id')->where('empresa', $nombre_empresa)->pluck('id')->first();
+
+
+      $area_empresarial_id = CEAre::select('id')->where('area_empresarial', $area_empresarial)->pluck('id')->first();
+
+      $puesto_id = CEPue::select('id')->where('puesto', $puesto)->first();
+      $id_puesto = $puesto_id->id;
+
+
         //validacion
       //comparacion a nulo de BD
       if(!$empresa_id){
@@ -87,20 +98,35 @@ class UsuariosController extends Controller
 
       DB::beginTransaction();
 
-
-     ECol::create([
+     $colaborador = ECol::create([
         'id_empresa' => $empresa_id,
         'nombre' => $nombre,
         'apellido_paterno' => $apellido_paterno,
         'apellido_materno' => $apellido_materno,
-        'area_empresarial' => $area_empresarial,
+        'id_area_empresarial' => $area_empresarial_id,
+        'id_puesto' => $id_puesto
       ]);
 
+      CTel::create([
+        'id_colaborador' => $colaborador->id,
+        'id_empresa' =>$empresa_id,
+        'telefono' =>$telefono
+      ]);
+
+      CCor::create([
+        'id_colaborador' => $colaborador->id,
+        'id_empresa' =>$empresa_id,
+        'correo' =>$correo
+      ]);
 
       DB::commit();
 
-      //return redirect()->route('VerWelcome');
-      return view('welcome', compact('variable'));
+      return redirect()->back()->with([
+        'titulo' => 'Colaborador registrado exitosamente',
+        'mensaje' => '',
+        'tipo' => 'success'
+      ]);
+
     } catch (\Exception $e) {
       DB::rollback();
       return $e->getMessage();
@@ -124,8 +150,9 @@ class UsuariosController extends Controller
 
     public function metColaboradores(Request $request){
       try {
-        $colaboradores =  ECol::with('telefonos_ECol')->with('correos_ECol')->get();
-        //dd($colaboradores);
+
+        $empresa = '1';
+        $colaboradores =  ECol::where('id_empresa',$empresa)->with('area_ECol')->with('telefonos_ECol')->with('correos_ECol')->get();
         return view('colaborador', compact('colaboradores'));
 
       } catch (\Exception $e) {
@@ -135,8 +162,8 @@ class UsuariosController extends Controller
 
     public function oshunColaboradores(Request $request){
       try {
-        $colaboradores =  ECol::with('telefonos_ECol')->with('correos_ECol')->get();
-      //  dd($colaboradores);
+        $empresa = '2';
+        $colaboradores =  ECol::where('id_empresa',$empresa)->with('telefonos_ECol')->with('correos_ECol')->get();
         return view('colaborador', compact('colaboradores'));
 
       } catch (\Exception $e) {
@@ -146,9 +173,10 @@ class UsuariosController extends Controller
 
     public function moocColaboradores(Request $request){
       try {
-        $colaboradores =  ECol::with('telefonos_ECol')->with('correos_ECol')->get();
-        dd($colaboradores);
-        return view('colaborador', compact('colaboradores'));
+
+        $empresa = '3';
+        $colaboradores =  ECol::where('id_empresa',$empresa)->with('telefonos_ECol')->with('correos_ECol')->get();
+        return view('colaborador  ', compact('colaboradores'));
 
       } catch (\Exception $e) {
         return $e->getMessage();

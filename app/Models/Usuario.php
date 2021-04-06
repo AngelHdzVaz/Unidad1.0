@@ -11,7 +11,6 @@ class Usuario extends Model
   use HasFactory;
 
   protected $fillable = [
-    'id',
     'id_empresa',
     'nombre',
     'apellido_paterno',

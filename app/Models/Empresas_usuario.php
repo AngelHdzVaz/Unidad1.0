@@ -8,7 +8,6 @@ class Usuario extends Model
 {
 
   protected $fillable = [
-    'id',
     'id_empresa',
     'id_colaborador',
     'usuario',

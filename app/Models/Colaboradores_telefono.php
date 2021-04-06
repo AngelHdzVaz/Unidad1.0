@@ -8,8 +8,8 @@ class Colaboradores_telefono extends Model
 {
     use HasFactory;
     protected $fillable = [
-      'id',
       'id_colaborador',
+      'id_empresa',
       'telefono'
     ];
 }

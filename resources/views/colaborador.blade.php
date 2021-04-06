@@ -14,14 +14,14 @@
           <th scope="col">Puesto</th>
           <th scope="col">Telefonos</th>
           <th scope="col">Correos</th>
-
+          
         </tr>
       </thead>
       <tbody>
         @foreach($colaboradores as $colaborador)
           <tr>
             <td>{{ $colaborador->nombre ." ". $colaborador->apellido_paterno ." ".$colaborador->apellido_materno  }}</td>
-            <td>{{ $colaborador->area_empresarial }}</td>
+            <td>{{ $colaborador->area_ECol->area_empresarial }}</td>
             <td>{{ $colaborador->puesto_ECol->puesto }}</td>
             <td>
               @foreach($colaborador->telefonos_ECol as $telefono)

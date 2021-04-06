@@ -32,9 +32,12 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::get('/colaboradores',[UsuariosController::class, 'metColaboradores'])->name('MetColaboradores');
+Route::get('/colaboradores/met',[UsuariosController::class, 'metColaboradores'])->name('MetColaboradores');
+Route::get('/colaboradores/oshun',[UsuariosController::class, 'oshunColaboradores'])->name('OshunColaboradores');
+Route::get('/colaboradores/mooc',[UsuariosController::class, 'moocColaboradores'])->name('MoocColaboradores');
+
 Route::get('/colaboradores/registro', [UsuariosController::class, 'registroColaborador'])->name('RegistroColaborador');
-Route::get('/usuarios/registrado', [UsuariosController::class, 'registrarUsuario'])->name('RegistrarUsuario');
+Route::post('/usuarios/registrado', [UsuariosController::class, 'registrarColaborador'])->name('RegistrarColaborador');
 Route::post('/login',[ UsuariosController::class,'loginUsuario'])->name('LoginUsuario');
 
 Route::get('/', [UsuariosController::class, 'verWelcome'])->name('VerWelcome');

@@ -8,7 +8,6 @@ class Empresa extends Model
 {
     use HasFactory;
     protected $fillable = [
-      'id',
       'empresa'
     ];
 }

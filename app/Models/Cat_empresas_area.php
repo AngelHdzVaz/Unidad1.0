@@ -9,7 +9,6 @@ class Cat_empresas_area extends Model
 {
     use HasFactory;
     protected $fillable = [
-      'id',
       'area_empresarial'
     ];
 }

@@ -9,7 +9,6 @@ class Cat_empresas_puesto extends Model
 {
     use HasFactory;
     protected $fillable = [
-      'id',
       'puesto'
     ];
 }
