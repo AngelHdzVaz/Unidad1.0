@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 //encriptar caracteres
 use Illuminate\Support\Facades\Hash;
 use DB;
+use Auth;
+use Log;
 //funciones de carga
 use App\Models\Empresa;
 use App\Models\Usuario;
@@ -29,14 +31,47 @@ class UsuariosController extends Controller
 
   public function loginUsuario(Request $request){
     try {
-      $correo = $correo;
-      $contrasenia = $contrasenia
+
+      $correo = $request->correo;
+      $contrasenia = $request->contrasenia;
+      Log::debug('1');
+      if(!$correo){
+        return redirect()->back()->with([
+          'titulo' => 'Verifica el campo correo',
+          'mensaje' => 'El valor recibido no se encuentra en los registros',
+          'tipo' => 'error'
+        ]);
+        }
+          Log::debug('2');
+      if(!$contrasenia){
+        return redirect()->back()->with([
+          'titulo' => 'Verifica el campo contraseña',
+          'mensaje' => 'El campo no debe estar vacio',
+          'tipo' => 'error'
+        ]);
+        }
+          Log::debug('3');
+        $credencial = ['email' => $correo, 'password' => $contrasenia];
+        $remember = 'on';
+        if(Auth::attempt($credencial, $remember)) {
+
+          return redirect()->route('Home');
+        } else {
+
+          return redirect()->back()->with([
+            'titulo' => 'Verifica los datos de inicio de sesión',
+            'mensaje' => ' ',
+            'tipo' => 'error'
+          ]);
+
+        }
+          Log::debug('4');
 
     } catch (\Exception $e) {
-
+      Log::debug('UsuariosController@loginUsuario'.$e->getMessage());
+      return null;
+      //return view('errorInterno'); hacer vista
     }
-
-    return view('register');
   }
 
   public function registrarColaborador(Request $request){
@@ -140,7 +175,7 @@ class UsuariosController extends Controller
       EUsu::create([
         'id_empresa' => $empresa_id,
         'id_colaborador' => $colaborador->id,
-        'usuario' =>$correo,
+        'email' =>$correo,
         'password' =>Hash::make($contrasenia)
       ]);
 
@@ -162,6 +197,13 @@ class UsuariosController extends Controller
     return view('welcome');
   }
 
+  public function verLogin(){
+    return view('auth.login');
+  }
+  public function verHome(){
+    return view('home');
+  }
+
   public function verMet(){
     return view('met');
   }
@@ -173,18 +215,29 @@ class UsuariosController extends Controller
     return view('mooc');
   }
 
-    public function metColaboradores(Request $request){
+    public function listaColaboradores(Request $request){
       try {
-
-        $empresa = '1';
-        $colaboradores =  ECol::where('id_empresa',$empresa)->with('area_ECol')->with('telefonos_ECol')->with('correos_ECol')->get();
+        //dd($request->empresa);
+        $nombre_empresa = $request->empresa;
+        $empresa_id = Empresa::select('id')->where('empresa', $nombre_empresa)->pluck('id')->first();
+        if(!$empresa_id){
+        
+          //log para verificar entrada de rutas de acceso
+            return redirect()->back()->with([
+              'titulo' => 'Ha ocurrido un error',
+              'mensaje' => 'Intenta nuevamente mas tarde',
+              'tipo' => 'error'
+            ]);
+        }
+        // la forma sucia $empresa = '1';
+        $colaboradores =  ECol::where('id_empresa',$empresa_id)->with('area_ECol')->with('telefonos_ECol')->with('correos_ECol')->get();
         return view('colaborador', compact('colaboradores'));
 
       } catch (\Exception $e) {
         return $e->getMessage();
       }
     }
-
+/*
     public function oshunColaboradores(Request $request){
       try {
         $empresa = '2';
@@ -208,5 +261,5 @@ class UsuariosController extends Controller
       }
     }
 
-
+*/
 }

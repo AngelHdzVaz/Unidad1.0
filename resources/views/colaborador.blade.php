@@ -4,7 +4,12 @@
 <div class="container">
     <h3>Lista de Colaboradores </h3>
     <div class=" row justify-content-end">
-          <button type="button" class="btn btn-light" onclick="location.href='{{ route('RegistroColaborador')}}'">Nuevo</button>
+      @auth
+        @if(Auth::user()->email == 'admin@oshun.com')
+
+          <button type="button" class="btn btn-primary" onclick="location.href='{{ route('RegistroColaborador')}}'">Nuevo</button>
+        @endif
+      @endauth
     </div>
     <table class="table">
       <thead>
@@ -14,7 +19,11 @@
           <th scope="col">Puesto</th>
           <th scope="col">Telefonos</th>
           <th scope="col">Correos</th>
-
+          @auth
+          @if(Auth::user()->email == 'admin@oshun.com')
+            <th scope="col">Operaciones</th>
+          @endif
+          @endauth
         </tr>
       </thead>
       <tbody>
@@ -36,6 +45,11 @@
                   {{ $correo-> correo }} <br>
               @endforeach
             </td>
+
+            <td><button class="btn"><i class="fas fa-edit fa-2x "></i> Editar</button>
+                <button class="btn"><i class="fas fa-dumpster-fire fa-2x"></i>Eliminar</button>
+            </td>
+
           </tr>
         @endforeach
       </tbody>

@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<?php
+  $empresa = 'MOOC chilaqueria';
+ ?>
 <div class="container">
   <div class="col">
     <div class=" row justify-content-end">
-          <button type="button" class="btn btn-light" onclick="location.href='{{ route('MoocColaboradores')}}'">Colaboradores</button>
+          <button type="button" class="btn btn-light" onclick="location.href='{{ route('ListaColaboradores',['empresa'=>$empresa])}}'">Colaboradores</button>
     </div>
     <div class="row justify-content-center text-sm">
       <h1>MOOC </h1>

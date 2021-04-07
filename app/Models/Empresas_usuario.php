@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 //Authenticatable es para permitir logeo manual y de laravel
-class Usuario extends Authenticatable
+class Empresas_usuario extends Authenticatable
 {
   //Nitifiable notificaciones en tiempo real
   use HasFactory, Notifiable;
@@ -14,7 +14,7 @@ class Usuario extends Authenticatable
   protected $fillable = [
     'id_empresa',
     'id_colaborador',
-    'usuario',
+    'email',
     'password'
   ];
 }

@@ -10,14 +10,18 @@
     <title>Grupo RICSO</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('vendor/fontawesome-5.15.0/js/all.min.js') }}"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="{{ asset('vendor/fontawesome-5.15.0/css/all.min.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.css') }}">
 </head>
 <body>
   @if(session('titulo'))
@@ -29,7 +33,7 @@
           });
         </script>
     @endif
-    
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
@@ -62,7 +66,7 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link text-sm text-gray-500 underline" href="{{ route('login') }}"><h6>Adm</h6></a>
+                                    <a class="nav-link text-sm text-gray-500 underline" href="{{ route('VerLogin') }}"><h6>Adm</h6></a>
                                 </li>
                             @endif
                         @else

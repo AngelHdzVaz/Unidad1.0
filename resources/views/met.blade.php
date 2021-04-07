@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<?php
+  $empresa = 'MEDICAL TECHNOLOGY';
+ ?>
 <div class="container">
   <div class="col">
     <div class=" row justify-content-end">
-          <button type="submit" name='MEDICAL TECHNOLOGY' id='MEDICAL TECHNOLOGY'  class="btn btn-light" onclick="location.href='{{ route('MetColaboradores')}}'" >Colaboradores</button>
+          <button type="submit" name='MEDICAL TECHNOLOGY' id='MEDICAL TECHNOLOGY'  class="btn btn-light" onclick="location.href='{{ route('ListaColaboradores',['empresa'=>$empresa])}}'" >Colaboradores</button>
     </div>
     <div class="row justify-content-center text-sm">
       <h1>SIMULADORES MÉDICOS </h1>
