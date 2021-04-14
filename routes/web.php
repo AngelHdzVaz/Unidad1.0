@@ -43,3 +43,5 @@ Auth::routes();
 Route::get('/home',[UsuariosController::class,'verHome'])->name('Home');
 Route::get('/colaboradores/registro', [UsuariosController::class, 'registroColaborador'])->name('RegistroColaborador');
 Route::post('/usuarios/registrado', [UsuariosController::class, 'registrarColaborador'])->name('RegistrarColaborador');
+Route::get('/colaboradores/editor/{correo}',[UsuariosController::class,'editorColaborador'])->name('EditorColaborador');
+Route::post('/colaboradores/actualizar/{correo}',[UsuariosController::class,'actualizarColaborador'])->name('ActualizarColaborador');

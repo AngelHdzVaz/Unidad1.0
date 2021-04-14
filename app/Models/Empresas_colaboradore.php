@@ -40,4 +40,10 @@ class Empresas_colaboradore extends Model
     {
         return $this->hasMany(CCor::class, 'id_colaborador', 'id');
     }
+
+    public function empresa_ECol()
+    {
+      return $this->belongsTo(Emp::class, 'id_empresa', 'id');
+    }
+
 }

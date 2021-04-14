@@ -11,4 +11,6 @@ class Cat_empresas_area extends Model
     protected $fillable = [
       'area_empresarial'
     ];
+
+    
 }

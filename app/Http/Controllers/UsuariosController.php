@@ -215,13 +215,13 @@ class UsuariosController extends Controller
     return view('mooc');
   }
 
-    public function listaColaboradores(Request $request){
+  public function listaColaboradores(Request $request){
       try {
         //dd($request->empresa);
         $nombre_empresa = $request->empresa;
         $empresa_id = Empresa::select('id')->where('empresa', $nombre_empresa)->pluck('id')->first();
         if(!$empresa_id){
-        
+
           //log para verificar entrada de rutas de acceso
             return redirect()->back()->with([
               'titulo' => 'Ha ocurrido un error',
@@ -231,7 +231,7 @@ class UsuariosController extends Controller
         }
         // la forma sucia $empresa = '1';
         $colaboradores =  ECol::where('id_empresa',$empresa_id)->with('area_ECol')->with('telefonos_ECol')->with('correos_ECol')->get();
-        return view('colaborador', compact('colaboradores'));
+        return view('lista_colaboradores', compact('colaboradores','nombre_empresa'));
 
       } catch (\Exception $e) {
         return $e->getMessage();
@@ -262,4 +262,64 @@ class UsuariosController extends Controller
     }
 
 */
+
+  public function editorColaborador(Request $request){
+    try {
+        $empresas = Empresa::select('empresa')->get();
+        $areas = CEAre::select('area_empresarial')->get();
+        $puestos = CEPue::select('puesto')->where('puesto','!=','Dios')->get();
+        $correo = $request->correo;
+
+        if(!$correo){
+          Log::debug('UsuariosController@editorColaborador no se recibio correo');
+          return redirect()->back()->with([
+            'titulo' => 'Ha ocurrido un error',
+            'mensaje' => 'Intenta nuevamente mas tarde',
+            'tipo' => 'error'
+          ]);
+
+          }
+
+          if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+              Log::debug('UsuariosController@editorColaborador se recibio correo invalido');
+            return redirect()->back()->with([
+              'titulo' => 'Ha ocurrido un error',
+              'mensaje' => 'Intenta nuevamente mas tarde',
+              'tipo' => 'error'
+            ]);
+          }
+
+          $existe = CCor::select('id')->where('correo', $correo)->pluck('id')->first();
+
+          if(!$existe){
+            Log::debug('UsuariosController@editorColaborador el correo no se encuentra en la Base de Datos');
+            return redirect()->back()->with([
+              'titulo' => 'Ha ocurrido un error',
+              'mensaje' => 'Intenta nuevamente mas tarde',
+              'tipo' => 'error'
+            ]);
+            }
+
+            $colaborador_datos = CCor::with(['colaborador_CCor' => function($q1){
+              $q1->with('empresa_ECol')
+                  ->with('telefonos_ECol')
+                  ->with('area_ECol')
+                  ->with('puesto_ECol');
+            }])->where('correo',$correo)->first();
+
+            //  dd($colaborador_datos->colaborador_CCor->nombre);
+
+            return view('editor_colaborador', compact('colaborador_datos','correo','empresas','areas','puestos'));
+
+
+
+    } catch (\Exception $e) {
+      Log::debug('UsuariosController@editorColaborador'.$e->getMessage());
+      return null;
+
+    }
+
+  }
+
+
 }

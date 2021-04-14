@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<script>
+  var nombre_empresa = '{{ $nombre_empresa }}';
+</script>
+  <script src="{{ asset('js/lista_colaboradores.js') }}"></script>
+
+
 <div class="container">
     <h3>Lista de Colaboradores </h3>
     <div class=" row justify-content-end">
@@ -41,20 +47,20 @@
             </td>
             <td>
               @foreach($colaborador->correos_ECol as $correo)
-
                   {{ $correo-> correo }} <br>
               @endforeach
             </td>
-
-            <td><button class="btn"><i class="fas fa-edit fa-2x "></i> Editar</button>
-                <button class="btn"><i class="fas fa-dumpster-fire fa-2x"></i>Eliminar</button>
+            @auth
+            @if(Auth::user()->email == 'admin@oshun.com')
+            <td><button class="btn" type="button" onclick= "location.href='{{ route('EditorColaborador',['correo'=>$colaborador->correos_ECol->pluck('correo')->first() ]) }}'"><i class="fas fa-edit "></i> Editar</button>
+                <button class="btn"><i class="fas fa-dumpster-fire"></i>Eliminar</button>
             </td>
-
+            @endif
+            @endauth
           </tr>
         @endforeach
       </tbody>
     </table>
   </div>
 </div>
-
 @endsection
