@@ -1,13 +1,24 @@
 @extends('layouts.app')
-
 @section('content')
-<?php
- ?>
+
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-4">
             <div class="card">
-                <div class="card-header">{{ __('Registrar Colaborador') }}</div>
+              <div class="card-header align-center text-center">
+                <div class="row">
+                      <div class="col-md-3 text-left">
+                        <button type="submit" class="btn btn-primary " onclick="location.href='{{ route('ListaColaboradores',['empresa'=>$nombre_empresa])}}'"> Regresar</button>
+                      </div>
+
+                      <div class="col-md-6">
+                        <h3>{{ __('Registrar') }}</h3>
+                      </div>
+                      <div class="col-md-3">
+                      </div>
+                </div>
+
+              </div>
 
                 <div class="card-body  ">
                     <form method="POST" action="{{ route('RegistrarColaborador') }}">
