@@ -23,7 +23,7 @@
 
                 </div>
                 <div class="card-body  ">
-                    <form method="POST" action="{{ route('RegistrarColaborador') }}">
+                    <form method="POST" action="{{ route('ActualizarColaborador',['correo'=>$correo]) }}">
                         @csrf
 
                         <div class="form-group row ">
@@ -90,9 +90,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-success align-center">
-                                    {{ __('Guardar') }}
-                                </button>
+                                <button class="btn" type="submit" >Guardar </button>
 
                             </div>
                         </div>
