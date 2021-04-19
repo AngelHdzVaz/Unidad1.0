@@ -7,10 +7,10 @@
 <div class="container">
   <div class="col">
     <div class=" row justify-content-end">
-          <button type="button" class="btn btn-light" onclick="location.href='{{ route('ListaColaboradores',['empresa'=>$empresa])}}'">Colaboradores</button>
+          <button type="submit" name='OSHUN TRADING' id='OSHUN TRADING' class="btn btn-light" onclick="location.href='{{ route('ListaColaboradores',['empresa'=>$empresa])}}'">Colaboradores</button>
     </div>
     <div class="row justify-content-center text-sm">
-      <h1>OSHUN </h1>
+      <h1>OSHUN</h1>
     </div>
     <div class="p-3 row justify-content-center text-sm">
       <img src="/images/logooshun2.jpg" width="150" height="150" alt="">
