@@ -22,11 +22,12 @@ class UsuariosController extends Controller
 {
 
   public function registroColaborador(Request $request){
+    $nombre_empresa = $request->empresa;
     $empresas = Empresa::select('empresa')->get();
     $areas = CEAre::select('area_empresarial')->get();
     $puestos = CEPue::select('puesto')->where('puesto','!=','Dios')->get();
 
-    return view('registro_colaborador',compact('empresas','puestos','areas'));
+    return view('registro_colaborador',compact('empresas','puestos','areas','nombre_empresa'));
   }
 
   public function loginUsuario(Request $request){
@@ -270,15 +271,13 @@ class UsuariosController extends Controller
         $puestos = CEPue::select('puesto')->where('puesto','!=','Dios')->get();
         $correo = $request->correo;
 
-        if(!$correo){
+        if(!$correo) {
           Log::debug('UsuariosController@editorColaborador no se recibio correo');
           return redirect()->back()->with([
             'titulo' => 'Ha ocurrido un error',
             'mensaje' => 'Intenta nuevamente mas tarde',
             'tipo' => 'error'
-          ]);
-
-          }
+          ]);}
 
           if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
               Log::debug('UsuariosController@editorColaborador se recibio correo invalido');
@@ -322,4 +321,127 @@ class UsuariosController extends Controller
   }
 
 
+  public function actualizarColaborador(Request $request){
+    try {
+      $nombre_empresa = $request->nombre_empresa;
+      $nombre = $request->nombre;
+      $apellido_paterno = $request->apellido_paterno;
+      $apellido_materno = $request->apellido_materno;
+      $area_empresarial = $request->area_empresarial;
+      $puesto = $request->puesto;
+      $telefono = $request->telefono;
+      $correo = $request->correo;
+
+            //relacion de id_empresa
+            //pluck-> para devolver solo el string no el objeto
+      $colaborador_id= CCor::select('id')->where('correo',$correo)->pluck('id')->first();
+      $empresa_id = Empresa::select('id')->where('empresa', $nombre_empresa)->pluck('id')->first();
+      $area_empresarial_id = CEAre::select('id')->where('area_empresarial', $area_empresarial)->pluck('id')->first();
+      $puesto_id = CEPue::select('id')->where('puesto', $puesto)->first();
+      $id_puesto = $puesto_id->id;
+        //validacion
+      //comparacion a nulo de BD
+      if(!$empresa_id){
+        return redirect()->back()->with([
+          'titulo' => 'Verifica el campo empresa',
+          'mensaje' => 'El valor recibido no se encuentra en los registros',
+          'tipo' => 'error'
+        ]);
+        }
+        //restriccion
+        if (!ctype_alpha($nombre)) {
+          return redirect()->back()->with([
+            'titulo' => 'Verifica el campo Nombre',
+            'mensaje' => 'El valor recibido no contiene unicamente letras',
+            'tipo' => 'error'
+          ]);
+        }
+        //validacion
+        if (!is_numeric($telefono) && (strlen ($telefono)!=10)){
+          return redirect()->back()->with([
+            'titulo' => 'Verifica el campo Telefono',
+            'mensaje' => 'El valor que ingresaste no es válido',
+            'tipo' => 'error'
+          ]);
+        }
+        $puesto_id = CEPue::select('id')->where('puesto', $puesto)->first();
+         //validacion
+        //comparacion a nulo de BD
+        if(!$puesto_id){
+          return redirect()->back()->with([
+            'titulo' => 'Verifica el campo Puesto',
+            'mensaje' => 'El valor recibido no se encuentra en los registros',
+            'tipo' => 'error'
+          ]);
+          }
+
+          if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            return redirect()->back()->with([
+              'titulo' => 'Verifica el campo Correo',
+              'mensaje' => 'El valor que ingresaste no es válido',
+              'tipo' => 'error'
+            ]);
+          }
+
+          Log::debug('1');
+      DB::beginTransaction();
+      Log::debug('2');
+     $colaborador = ECol::where('id',$colaborador_id)->update([
+        'id_empresa' => $empresa_id,
+        'nombre' => $nombre,
+        'apellido_paterno' => $apellido_paterno,
+        'apellido_materno' => $apellido_materno,
+        'id_area_empresarial' => $area_empresarial_id,
+        'id_puesto' => $id_puesto
+      ]);
+      Log::debug('3');
+      CTel::where('id_colaborador',$colaborador_id)->update([
+        'id_empresa' =>$empresa_id,
+        'telefono' =>$telefono
+      ]);
+      Log::debug('4');
+      CCor::where('id_colaborador',$colaborador_id)->update([
+        'id_empresa' =>$empresa_id,
+        'correo' =>$correo
+      ]);
+      Log::debug('5');
+      EUsu::where('id_colaborador',$colaborador_id)->update([
+        'id_empresa' => $empresa_id,
+        'email' =>$correo,
+      ]);
+
+      DB::commit();
+
+      return redirect()->back()->with([
+        'titulo' => 'Colaborador actualizado exitosamente',
+        'mensaje' => '',
+        'tipo' => 'success'
+      ]);
+
+    } catch (\Exception $e) {
+      DB::rollback();
+      return $e->getMessage();
+    }
+  }
+
+  public function borrarColaborador(Request $request){
+      try {
+        $correo = $request->correo;
+        $colaborador_id= CCor::select('id')->where('correo',$correo)->pluck('id')->first();
+        
+        DB::beginTransaction();
+        ECol::where('id',$colaborador_id)->delete();
+        CTel::where('id_colaborador',$colaborador_id)->delete();
+        CCor::where('id_colaborador',$colaborador_id)->delete();
+        EUsu::where('id_colaborador',$colaborador_id)->delete();
+        DB::commit();
+        return redirect()->back()->with([
+          'titulo' => 'Colaborador borrado exitosamente',
+          'mensaje' => '',
+          'tipo' => 'success'
+          ]);
+      } catch (\Exception $e) {
+        return $e->getMessage();
+      }
+  }
 }
