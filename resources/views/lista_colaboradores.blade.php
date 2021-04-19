@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
+<?php
+
+ ?>
 <script>
   var nombre_empresa = '{{ $nombre_empresa }}';
+
 </script>
   <script src="{{ asset('js/lista_colaboradores.js') }}"></script>
 
@@ -12,8 +17,10 @@
     <div class=" row justify-content-end">
       @auth
         @if(Auth::user()->email == 'admin@oshun.com')
-
-          <button type="button" class="btn btn-primary" onclick="location.href='{{ route('RegistroColaborador')}}'">Nuevo</button>
+          <form action="{{ route('RegistroColaborador',['empresa'=>$nombre_empresa]) }}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-primary" >Nuevo</button>
+          </form>
         @endif
       @endauth
     </div>
@@ -50,10 +57,11 @@
                   {{ $correo-> correo }} <br>
               @endforeach
             </td>
+
             @auth
             @if(Auth::user()->email == 'admin@oshun.com')
             <td><button class="btn" type="button" onclick= "location.href='{{ route('EditorColaborador',['correo'=>$colaborador->correos_ECol->pluck('correo')->first() ]) }}'"><i class="fas fa-edit "></i> Editar</button>
-                <button class="btn"><i class="fas fa-dumpster-fire"></i>Eliminar</button>
+                <button class="btn" type="button" onclick= "location.href='{{ route('BorrarColaborador',['correo'=>$colaborador->correos_ECol->pluck('correo')->first() ]) }}'"><i class="fas fa-dumpster-fire"></i>Eliminar</button>
             </td>
             @endif
             @endauth
