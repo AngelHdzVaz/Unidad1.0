@@ -3,8 +3,6 @@
 @section('content')
 
 <div class="container">
-  <button class="btn btn-success" type="button"> Botoncillo  </button>
-
 
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
@@ -14,13 +12,13 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img class="d-block w-100" src="{{ asset('images/carr1.jpg') }}" width="300" height="600" alt="First slide">
+      <img class="d-block w-100" src="{{ asset('images/carr1_1.jpg') }}" width="1000" height="650" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ asset('images/carr2.jpg') }}" width="300" height="600" alt="Second slide">
+      <img class="d-block w-100" src="{{ asset('images/carr2_1.jpg') }}" width="1000" height="650" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block w-100" src="{{ asset('images/carr3.jpg') }}" width="300" height="600" alt="Third slide">
+      <img class="d-block w-100" src="{{ asset('images/carr3_1.jpg') }}" width="1000" height="650" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

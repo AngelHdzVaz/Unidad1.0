@@ -21,6 +21,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app-expansion.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/sweetalert2.css') }}">
 </head>
 <body>
