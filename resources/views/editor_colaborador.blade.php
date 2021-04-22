@@ -122,15 +122,29 @@
 
                         <input type="hidden" name="nombre_empresa" value="{{ $colaborador_datos->colaborador_CCor->empresa_ECol->empresa }}">
                     <label for="name" class="col-md-6 col-form-label text-left"><i class="fas fa-phone"></i> #1</label><br>
-                      <div class="col-md-11">
-                        <input id="ipt_telefono1" type="text" class="form-control " name="telefono1"  value="{{   $colaborador_datos->colaborador_CCor->telefonos_ECol->pluck('telefono')->get(1) }}" autofocus>
-                        </div>
-                      <label for="name" class="col-md-6 col-form-label text-left"><i class="fas fa-phone"></i> #2</label>
-                        <div class="col-md-11">
-                          <input id="ipt_telefono2" type="text" class="form-control " name="telefono2" value="{{   $colaborador_datos->colaborador_CCor->telefonos_ECol->pluck('telefono')->get(2) }}"  autofocus>
-
-                        </div>
-
+                    <div class="row">
+                      <div class="col-6 text-center">
+                        <input id="ipt_telefono1" type="text" class="form-control text-left" name="telefono1"  value="{{   $colaborador_datos->colaborador_CCor->telefonos_ECol->pluck('telefono')->get(1) }}" autofocus>
+                      </div>
+                      <div class="col-3  p-1   text-left">
+                          <button type="button" class="btn btn-primary btn-sm">Guardar</button>
+                      </div>
+                      <div class="col-md-3 p-1 text-center">
+                          <button type="button" class="btn btn-danger btn-sm">Borrar</button>
+                      </div>
+                    </div>
+                    <label for="name" class="col-md-6 col-form-label text-left"><i class="fas fa-phone"></i> #2</label>
+                    <div class="row">
+                      <div class="col-md-6 text-center">
+                        <input id="ipt_telefono1" type="text" class="form-control text-left" name="telefono2"  value="{{   $colaborador_datos->colaborador_CCor->telefonos_ECol->pluck('telefono')->get(2) }}" autofocus>
+                      </div>
+                      <div class="col-md-3  p-1   text-left">
+                          <button type="button" class="btn btn-primary btn-sm">Guardar</button>
+                      </div>
+                      <div class="col-md-3 p-1 text-center">
+                          <button type="button" class="btn btn-danger btn-sm">Borrar</button>
+                      </div>
+                    </div>
                 </div>
                 <div class="form-group row mb-2">
                     <div class="col-md-3">
@@ -160,10 +174,28 @@
                           <div class="col-md-11">
                               <input id="ipt_telefono" type="text" class="form-control " name="correo1" value="{{ $colaborador_datos->colaborador_CCor->correos_ECol->pluck('correo')->get(1)  }}"  autofocus>
                           </div>
+                          <div class="row">
+                            <div class="col-md-6  p-2   text-center">
+                                <button type="button" class="btn btn-primary ">Guardar</button>
+                            </div>
+                            <div class="col-md-6 p-2 text-center">
+                                <button type="button" class="btn btn-danger">Borrar</button>
+                            </div>
+                          </div>
+
                           <label for="name" class="col-md-6 col-form-label text-left"><i class="fas fa-envelope "></i> #2</label>
+
                             <div class="col-md-11">
                                 <input id="ipt_telefono" type="text" class="form-control " name="correo2" value="{{ $colaborador_datos->colaborador_CCor->correos_ECol->pluck('correo')->get(2)}}"  autofocus>
                             </div>
+                            <div class="row">
+                            <div class="col-md-6  p-2   text-center">
+                                <button type="button" class="btn btn-primary ">Guardar</button>
+                            </div>
+                            <div class="col-md-6 p-2 text-center">
+                                <button type="button" class="btn btn-danger ">Borrar</button>
+                            </div>
+                          </div>
                     </div>
                     <div class="form-group row mb-2">
                         <div class="col-md-3">

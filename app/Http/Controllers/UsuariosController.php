@@ -463,46 +463,56 @@ class UsuariosController extends Controller
         ]);
         }
         //validacion
-
-          if (!is_numeric($telefono1) && (strlen ($telefono1)!=10)  ){
-            return redirect()->back()->with([
-              'titulo' => 'Verifica el campo Telefono',
-              'mensaje' => 'El valor que ingresaste no es válido',
-              'tipo' => 'error'
-            ]);
+          if($telefono1){
+            if (!is_numeric($telefono1) && (strlen ($telefono1)!=10)  ){
+              return redirect()->back()->with([
+                'titulo' => 'Verifica el campo Telefono',
+                'mensaje' => 'El valor que ingresaste no es válido',
+                'tipo' => 'error'
+              ]);
+            }
           }
 
-
-          if (!is_numeric($telefono2) && (strlen ($telefono2)!=10)  ){
-            return redirect()->back()->with([
-              'titulo' => 'Verifica el campo Telefono',
-              'mensaje' => 'El valor que ingresaste no es válido',
-              'tipo' => 'error'
-            ]);
+          if($telefono2){
+            if (!is_numeric($telefono2) && (strlen ($telefono2)!=10)  ){
+              return redirect()->back()->with([
+                'titulo' => 'Verifica el campo Telefono',
+                'mensaje' => 'El valor que ingresaste no es válido',
+                'tipo' => 'error'
+              ]);
+            }
           }
-
+          //dd($telefono1,$telefono1_actual)
         DB::beginTransaction();
         //crear correos en caso de no existir
-        //dd($correo,$correo1,$correo2,$correo1_actual,$correo2_actual);
-          if ($telefono1_actual !== null ) {
+        //dd($telefono1,$telefono2,$telefono1_actual,$telefono2_actual);
+          Log::debug('1');
+          if ($telefono1_actual && $telefono1!==null) {
                 CTel::select('id')->where('id_colaborador',$colaborador_id)
                 ->where('id_empresa',$empresa_id)
                 ->where('telefono',$telefono1_actual)
                 ->update(['telefono' =>$telefono1]);
-          } else {
-                $telefono1 = CTel::create([
+          Log::debug('2');
+          } else if($telefono1==null){
+              Log::debug('3');
+            CTel::where('id_colaborador',$colaborador_id)->where('id_empresa',$empresa_id)->where('telefono',$telefono1_actual)->delete();
+          } else if($telefono1){
+            Log::debug('4');
+                CTel::create([
                   'id_colaborador' =>$colaborador_id,
                   'id_empresa' =>$empresa_id,
                   'telefono' =>$telefono1
                 ]);
           }
 
-          if ($telefono2_actual !== null) {
+          if ($telefono2_actual && $telefono2!==null) {
                 CTel::select('id')->where('id_colaborador',$colaborador_id)
                 ->where('id_empresa',$empresa_id)
                 ->where('telefono',$telefono2_actual)
                 ->update(['telefono' =>$telefono2]);
-          } else {
+          }else if($telefono2==null){
+            CTel::select('id')->where('id_colaborador',$colaborador_id)->where('id_empresa',$empresa_id)->where('telefono',$telefono2_actual)->delete();
+          }else if($telefono2){
                 $telefono2 = CTel::create([
                   'id_colaborador' =>$colaborador_id,
                   'id_empresa' =>$empresa_id,
@@ -571,19 +581,25 @@ class UsuariosController extends Controller
               'tipo' => 'error'
             ]);
           }else{
-            if ($correo1_actual !== null) {
+            if ($correo1_actual && $correo1!==null) {
                   CCor::select('id')->where('id_colaborador',$colaborador_id)
                   ->where('id_empresa',$empresa_id)
                   ->where('correo',$correo1_actual)
                   ->update(['correo' =>$correo1]);
-            } else {
-                  $correo1 = CCor::create([
+            Log::debug('2');
+          } else if($correo1==null){
+                Log::debug('3');
+              CCor::where('id_colaborador',$colaborador_id)->where('id_empresa',$empresa_id)->where('correo',$correo1_actual)->delete();
+            } else if($correo1){
+              Log::debug('4');
+                  CCor::create([
                     'id_colaborador' =>$colaborador_id,
                     'id_empresa' =>$empresa_id,
                     'correo' =>$correo1
                   ]);
             }
           }
+
           if($existecorreo2){
             return redirect()->back()->with([
               'titulo' => 'Correo ya existente',
@@ -591,13 +607,18 @@ class UsuariosController extends Controller
               'tipo' => 'error'
             ]);
           }else{
-            if ($correo2_actual !== null) {
+            if ($correo2_actual && $correo2!==null) {
                   CCor::select('id')->where('id_colaborador',$colaborador_id)
                   ->where('id_empresa',$empresa_id)
-                  ->where('correo',$correo2_actual)
+                  ->where('correo',$correo1_actual)
                   ->update(['correo' =>$correo2]);
-            } else {
-                  $correo1 = CCor::create([
+            Log::debug('2');
+          } else if($correo2==null){
+                Log::debug('3');
+              CCor::where('id_colaborador',$colaborador_id)->where('id_empresa',$empresa_id)->where('correo',$correo2_actual)->delete();
+            } else if($correo2){
+              Log::debug('4');
+                  CCor::create([
                     'id_colaborador' =>$colaborador_id,
                     'id_empresa' =>$empresa_id,
                     'correo' =>$correo2
