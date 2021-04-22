@@ -16,7 +16,7 @@
     <h3>Lista de Colaboradores </h3>
     <div class=" row justify-content-end">
       @auth
-        @if(Auth::user()->email == 'admin@oshun.com')
+        @if(Auth::user()->email == 'admin@oshuntrading.com')
           <form action="{{ route('RegistroColaborador',['empresa'=>$nombre_empresa]) }}" method="post">
             @csrf
             <button type="submit" class="btn btn-primary" >Nuevo</button>
@@ -33,7 +33,7 @@
           <th scope="col">Telefonos</th>
           <th scope="col">Correos</th>
           @auth
-          @if(Auth::user()->email == 'admin@oshun.com')
+          @if(Auth::user()->email == 'admin@oshuntrading.com')
             <th scope="col">Operaciones</th>
           @endif
           @endauth
@@ -59,7 +59,7 @@
             </td>
 
             @auth
-            @if(Auth::user()->email == 'admin@oshun.com')
+            @if(Auth::user()->email == 'admin@oshuntrading.com')
             <td><button class="btn" type="button" onclick= "location.href='{{ route('EditorColaborador',['correo'=>$colaborador->correos_ECol->pluck('correo')->first() ]) }}'"><i class="fas fa-edit "></i> Editar</button>
                 <button class="btn" type="button" onclick= "location.href='{{ route('BorrarColaborador',['correo'=>$colaborador->correos_ECol->pluck('correo')->first() ]) }}'"><i class="fas fa-dumpster-fire"></i>Eliminar</button>
             </td>

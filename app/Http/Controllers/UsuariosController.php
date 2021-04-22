@@ -51,14 +51,16 @@ class UsuariosController extends Controller
           'tipo' => 'error'
         ]);
         }
+
           Log::debug('3');
         $credencial = ['email' => $correo, 'password' => $contrasenia];
-        $remember = 'on';
-        if(Auth::attempt($credencial, $remember)) {
+        $remember = 'off';
 
+        if(Auth::attempt($credencial)) {
+            Log::debug('3.1');
           return redirect()->route('Home');
         } else {
-
+            Log::debug('3.2');
           return redirect()->back()->with([
             'titulo' => 'Verifica los datos de inicio de sesión',
             'mensaje' => ' ',

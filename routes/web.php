@@ -24,7 +24,7 @@ Route::get('/pruebas',function(){
   //whereHas condicion anonima default
   //$colaborador_telefonos = App\Models\Empresas_colaboradore::with('telefonos_Ecol')->where('id',$colaborador_id)->get();
   //$colaborador_correos = App\Models\Empresas_colaboradore::with('correos_ECol')->where('id',$colaborador_id)->get();
-  dd(\Hash::make('Master21'));
+  dd(\Hash::make('Master'));
   //dd($colaborador_correos, $colaborador_telefonos);
 });
 
@@ -40,11 +40,12 @@ Route::get('/mooc',[UsuariosController::class, 'verMooc'])->name('VerMooc');
 Route::get('/{empresa}/colaboradores/lista',[UsuariosController::class, 'listaColaboradores'])->name('ListaColaboradores');
 
 Auth::routes();
-Route::get('/home',[UsuariosController::class,'verHome'])->name('Home');
-Route::any('/{empresa}/colaboradores/registro', [UsuariosController::class, 'registroColaborador'])->name('RegistroColaborador');
-Route::post('/usuarios/registrar', [UsuariosController::class, 'registrarColaborador'])->name('RegistrarColaborador');
-Route::get('/colaboradores/{correo}/editor',[UsuariosController::class,'editorColaborador'])->name('EditorColaborador');
-Route::post('/colaboradores/{correo}/actualizar',[UsuariosController::class,'actualizarColaborador'])->name('ActualizarColaborador');
-Route::post('/colaboradores/{correo}/actualizar_telefonos',[UsuariosController::class,'actualizarTelefonosColaborador'])->name('ActualizarTelefonosColaborador');
-Route::post('/colaboradores/{correo}/actualizar_correos',[UsuariosController::class,'actualizarCorreosColaborador'])->name('ActualizarCorreosColaborador');
-Route::get('/colaboradores/{correo}/borrar',[UsuariosController::class,'borrarColaborador'])->name('BorrarColaborador');
+
+  Route::get('/home',[UsuariosController::class,'verHome'])->name('Home');
+  Route::any('/{empresa}/colaboradores/registro', [UsuariosController::class, 'registroColaborador'])->name('RegistroColaborador');
+  Route::post('/usuarios/registrar', [UsuariosController::class, 'registrarColaborador'])->name('RegistrarColaborador');
+  Route::get('/colaboradores/{correo}/editor',[UsuariosController::class,'editorColaborador'])->name('EditorColaborador');
+  Route::post('/colaboradores/actualizar/{correo}',[UsuariosController::class,'actualizarColaborador'])->name('ActualizarColaborador');
+  Route::post('/colaboradores/actualizar_telefonos/{correo}',[UsuariosController::class,'actualizarTelefonosColaborador'])->name('ActualizarTelefonosColaborador');
+  Route::post('/colaboradores/actualizar_correos/{correo}',[UsuariosController::class,'actualizarCorreosColaborador'])->name('ActualizarCorreosColaborador');
+  Route::get('/colaboradores/borrar/{correo}',[UsuariosController::class,'borrarColaborador'])->name('BorrarColaborador');
